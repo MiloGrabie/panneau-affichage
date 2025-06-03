@@ -1,0 +1,148 @@
+@font-face {
+    font-family: 'Digital-7';
+    src: url('../src/assets/fonts/digital-7.ttf') format('truetype');
+}
+
+.gas-price-panel {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.panel-title {
+    text-align: center;
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+    font-size: 3rem;
+    background-color: #1a237e;
+    color: white;
+    text-transform: none;
+    letter-spacing: 2px;
+}
+
+.price-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    gap: 0;
+}
+
+.price-item {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.fuel-type {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: normal;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    min-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-right: 10px;
+    height: 100%;
+    min-height: 80px;
+}
+
+.fuel-type.sp95 {
+    background-color: #009688;
+    color: white;
+}
+
+.fuel-type.gazole {
+    background-color: #ffd700;
+}
+
+.fuel-type.courant {
+    background-color: #424242;
+    color: white;
+}
+
+.price {
+    background-color: black;
+    padding: 0.5rem 1rem;
+    border: none;
+    color: #ff0000;
+    border-radius: 2px;
+    min-width: 180px;
+    font-family: 'Digital-7', monospace;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    height: 100%;
+    min-height: 80px;
+}
+
+.price-number {
+    font-size: 3.5rem;
+    font-weight: normal;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+.last-digit {
+    font-size: 3.5rem;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+.unit {
+    font-size: 1rem;
+    margin-left: 8px;
+    align-self: flex-end;
+    padding-bottom: 8px;
+}
+
+.price-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #1a1a1a;
+    padding: 10px 0;
+    overflow: hidden;
+    width: 100%;
+    z-index: 1000;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+    color: #ffd700;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+} 

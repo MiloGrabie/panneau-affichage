@@ -11,14 +11,14 @@ interface FuelPrice {
 
 const GasPricePanel: React.FC = () => {
   const fuelPrices: FuelPrice[] = [
-    { type: 'S/plomb 95-E10', label: 'OFFICIEL +', price:   2.015, unit: 'Cul-Sec/Pins', className: 'sp95' },
-    { type: 'Gazole', label: 'OFFICIEL E10', price: 3.028, unit: 'Cul-Sec/Pins', className: 'gazole' },
-    { type: 'Courant Continu', label: 'LÉGENDAIRE Excellium', price: 5.103, unit: 'Cul-Sec/Pins', className: 'courant' },
+    { type: 'S/plomb 95-E10', label: 'POMPE 1', price:   1.896, unit: 'S/PLOMB 95-E10', className: 'sp95' },
+    { type: 'Gazole', label: 'POMPE 2', price: 0.694, unit: 'MAZOUTE', className: 'gazole' },
+    { type: 'Courant Continu', label: 'POMPE 3', price: 1.765, unit: 'GAZOLE', className: 'courant' },
   ];
  
   return (
     <div className="gas-price-panel">
-      <h2 className="panel-title">Tarifs rachat 24/24</h2>
+      <h2 className="panel-title">Tarifs - Pompe 24/7</h2>
       <div className="price-grid">
         {fuelPrices.map((fuel) => (
           <div key={fuel.type} className="price-item">
