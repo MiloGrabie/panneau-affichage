@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './GasPricePanel.css';
 
 interface FuelPrice {
@@ -9,16 +10,35 @@ interface FuelPrice {
   className: string;
 }
 
-const GasPricePanel: React.FC = () => {
+interface Message {
+  author: string;
+  text: string;
+  timestamp: number;
+}
+
+interface GasPricePanelProps {
+  messages: Message[];
+}
+
+const GasPricePanel: React.FC<GasPricePanelProps> = ({ messages }) => {
+  const navigate = useNavigate();
   const fuelPrices: FuelPrice[] = [
-    { type: 'S/plomb 95-E10', label: 'POMPE 1', price:   1.896, unit: 'S/PLOMB 95-E10', className: 'sp95' },
-    { type: 'Gazole', label: 'POMPE 2', price: 0.694, unit: 'MAZOUTE', className: 'gazole' },
-    { type: 'Courant Continu', label: 'POMPE 3', price: 1.765, unit: 'GAZOLE', className: 'courant' },
+    { type: 'S/plomb 95-E10', label: 'S/PLOMB 95-E10', price:   1.896, unit: 'VODKA / POMME', className: 'sp95' },
+    { type: 'Gazole', label: 'MAZOUTE', price: 0.694, unit: 'WHISKEY / COCA', className: 'gazole' },
+    { type: 'Courant Continu', label: 'POMPE 3', price: 1.765, unit: 'VODKA / PECHE', className: 'courant' },
   ];
  
   return (
     <div className="gas-price-panel">
-      <h2 className="panel-title">Tarifs - Pompe 24/7</h2>
+      <div className="panel-header">
+        <h2 className="panel-title">Tarifs - Pompe 24/7</h2>
+        <button 
+          className="admin-button"
+          onClick={() => navigate('/admin')}
+        >
+          Administration
+        </button>
+      </div>
       <div className="price-grid">
         {fuelPrices.map((fuel) => (
           <div key={fuel.type} className="price-item">
@@ -40,7 +60,11 @@ const GasPricePanel: React.FC = () => {
       <footer className="price-footer">
         <div className="marquee-container">
           <div className="marquee">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            {messages.map((message, index) => (
+              <span key={index} className="message">
+                <strong>{message.author}:</strong> {message.text}
+              </span>
+            ))}
           </div>
         </div>
       </footer>
