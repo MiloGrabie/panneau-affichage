@@ -11,7 +11,7 @@ interface Message {
   timestamp: number;
 }
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'http://176.132.102.216:8000';
 
 const App: React.FC = () => {
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -25,7 +25,14 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`${API_URL}/messages`);
+        const response = await fetch(`${API_URL}/messages`, {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        });
         const data = await response.json();
         setMessages(data.messages);
       } catch (error) {
@@ -53,7 +60,9 @@ const App: React.FC = () => {
     try {
       const response = await fetch(`${API_URL}/add-code`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ code: newCode }),
@@ -65,7 +74,6 @@ const App: React.FC = () => {
 
       const updatedCodes = new Set([...Array.from(usedCodes), newCode]);
       setUsedCodes(updatedCodes);
-      // Save to localStorage
       localStorage.setItem('usedCodes', JSON.stringify(Array.from(updatedCodes)));
       return newCode;
     } catch (error) {
@@ -83,7 +91,9 @@ const App: React.FC = () => {
       
       const response = await fetch(`${API_URL}/messages`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newMessage),
@@ -107,7 +117,9 @@ const App: React.FC = () => {
     try {
       const response = await fetch(`${API_URL}/validate-code`, {
         method: 'POST',
+        mode: 'cors',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ code }),
