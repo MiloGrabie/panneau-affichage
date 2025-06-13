@@ -11,7 +11,12 @@ interface Message {
   timestamp: number;
 }
 
-const API_URL = 'http://176.132.102.216:8000';
+// Par ceci :
+const API_URL = process.env.NODE_ENV === 'development' 
+  ? 'http://localhost:8000'  // En développement local
+  : window.location.hostname === '176.132.102.216'
+    ? 'http://176.132.102.216:8000'  // Accès réseau local
+    : `http://${window.location.hostname}:8000`;  // Accès externe (IP publique)
 
 const App: React.FC = () => {
   const [messages, setMessages] = React.useState<Message[]>([]);
