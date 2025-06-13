@@ -1,5 +1,6 @@
+// This component is designed to be displayed on a TV screen, showing only gas prices and messages
+// No interactive elements should be added as it's meant for display-only purposes
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './GasPricePanel.css';
 
 interface FuelPrice {
@@ -21,7 +22,6 @@ interface GasPricePanelProps {
 }
 
 const GasPricePanel: React.FC<GasPricePanelProps> = ({ messages }) => {
-  const navigate = useNavigate();
   const fuelPrices: FuelPrice[] = [
     { type: 'S/plomb 95-E10', label: 'S/PLOMB 95-E10', price:   1.896, unit: 'VODKA / POMME', className: 'sp95' },
     { type: 'Gazole', label: 'MAZOUTE', price: 0.694, unit: 'WHISKEY / COCA', className: 'gazole' },
@@ -32,12 +32,6 @@ const GasPricePanel: React.FC<GasPricePanelProps> = ({ messages }) => {
     <div className="gas-price-panel">
       <div className="panel-header">
         <h2 className="panel-title">Tarifs - Pompe 24/7</h2>
-        <button 
-          className="admin-button"
-          onClick={() => navigate('/admin')}
-        >
-          Administration
-        </button>
       </div>
       <div className="price-grid">
         {fuelPrices.map((fuel) => (
@@ -62,7 +56,7 @@ const GasPricePanel: React.FC<GasPricePanelProps> = ({ messages }) => {
           <div className="marquee">
             {messages.map((message, index) => (
               <span key={index} className="message">
-                <strong>{message.author}:</strong> {message.text}
+                <strong>{message.author} :</strong> {message.text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </span>
             ))}
           </div>

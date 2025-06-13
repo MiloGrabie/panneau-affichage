@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './MessageSubmission.css';
 
 interface MessageSubmissionProps {
   onSubmit: (message: { author: string; text: string }) => Promise<void>;
-  validateCode: (code: string) => boolean;
+  validateCode: (code: string) => Promise<boolean>;
 }
 
 const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validateCode }) => {
@@ -12,13 +12,36 @@ const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validat
   const [text, setText] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isValidating, setIsValidating] = useState(true);
   const { code } = useParams<{ code: string }>();
   const navigate = useNavigate();
+  const validationInProgress = useRef(false);
 
   useEffect(() => {
-    if (!code || !validateCode(code)) {
-      navigate('/');
-    }
+    const validateCodeAsync = async () => {
+      if (!code || validationInProgress.current) {
+        return;
+      }
+
+      validationInProgress.current = true;
+      try {
+        const isValid = await validateCode(code);
+        if (!isValid) {
+          navigate('/');
+        }
+      } catch (err) {
+        setError('Erreur lors de la validation du code');
+        navigate('/');
+      } finally {
+        setIsValidating(false);
+      }
+    };
+
+    validateCodeAsync();
+
+    return () => {
+      validationInProgress.current = false;
+    };
   }, [code, validateCode, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,6 +73,14 @@ const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validat
       setIsSubmitting(false);
     }
   };
+
+  if (isValidating) {
+    return (
+      <div className="message-submission">
+        <h1>Validation du code...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="message-submission">
