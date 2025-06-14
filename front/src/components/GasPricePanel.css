@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
-
 @font-face {
     font-family: 'Digital-7';
     src: url('../assets/fonts/digital-7.ttf') format('truetype');
@@ -13,7 +12,7 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     position: relative;
 }
 
@@ -22,23 +21,38 @@
     width: 100%;
     padding: 1rem;
     margin: 0;
-    font-size: 3rem;
+    font-size: 2.6rem;
     background-color: #1a237e;
     color: white;
     text-transform: none;
     letter-spacing: 2px;
+    box-sizing: border-box;
+}
+
+.price-footer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #1a1a1a;
+    padding: 20px 0;
+    overflow: hidden;
+    width: 100%;
+    z-index: 1000;
 }
 
 .price-grid {
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 800px;
     gap: 0;
+    margin-top: calc(3.5rem + 70px);
+    /* Dynamically calculate space based on header height */
+    flex: 1;
+    overflow-y: auto;
 }
 
 .price-item {
-    padding: 0.5rem;
+    padding: 0.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -53,12 +67,12 @@
 
 .fuel-type {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: normal;
     color: black;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    min-width: 200px;
+    min-width: 300px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -117,60 +131,55 @@
     padding-bottom: 8px;
 }
 
-.price-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: #1a1a1a;
-  padding: 10px 0;
-  overflow: hidden;
-  width: 100%;
-  z-index: 1000;
-}
-
 .marquee-container {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .marquee {
-  display: inline-block;
-  padding-left: 100%;
-  animation: marquee 40s linear infinite;
-  color: #ffd700;
-  font-family: 'Arial', sans-serif;
-  font-size: 2rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+    color: #ffd700;
+    font-family: 'Arial', sans-serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .admin-button {
-  padding: 0.5rem 1rem;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s;
+    padding: 0.5rem 1rem;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
 }
 
 .admin-button:hover {
-  background-color: #5a6268;
+    background-color: #5a6268;
 }

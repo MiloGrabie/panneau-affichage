@@ -59,7 +59,7 @@ class Storage:
         self.save_data()
 
     def get_messages(self) -> List[Message]:
-        return self.messages
+        return self.messages[-1:] if self.messages else []
 
     def add_code(self, code: str):
         # Code expires in 1 minute
@@ -86,6 +86,10 @@ class Storage:
         if code in self.available_codes:
             del self.available_codes[code]
             self.save_data()
+
+    def clear_messages(self):
+        self.messages = []
+        self.save_data()
 
 # Create a global storage instance
 storage = Storage() 

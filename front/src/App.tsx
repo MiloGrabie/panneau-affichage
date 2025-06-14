@@ -6,17 +6,19 @@ import AdminPanel from './pages/AdminPanel';
 import './App.css';
 
 interface Message {
-  author: string;
   text: string;
   timestamp: number;
 }
 
 // Par ceci :
-const API_URL = process.env.NODE_ENV === 'development' 
-  ? 'http://localhost:8000'  // En développement local
-  : window.location.hostname === '176.132.102.216'
-    ? 'http://176.132.102.216:8000'  // Accès réseau local
-    : `http://${window.location.hostname}:8000`;  // Accès externe (IP publique)
+// const API_URL = process.env.NODE_ENV === 'development' 
+//   ? 'http://localhost:8000'  // En développement local
+//   : window.location.hostname === '176.132.102.216'
+//     ? 'http://176.132.102.216:8000'  // Accès réseau local
+//     : `http://${window.location.hostname}:8000`;  // Accès externe (IP publique)
+
+const API_URL = `http://${window.location.hostname}:8000`;
+
 
 const App: React.FC = () => {
   const [messages, setMessages] = React.useState<Message[]>([]);
@@ -32,7 +34,6 @@ const App: React.FC = () => {
       try {
         const response = await fetch(`${API_URL}/messages`, {
           method: 'GET',
-          mode: 'cors',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -65,7 +66,6 @@ const App: React.FC = () => {
     try {
       const response = await fetch(`${API_URL}/add-code`, {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -87,10 +87,10 @@ const App: React.FC = () => {
     }
   };
 
-  const handleMessageSubmit = async (message: { author: string; text: string }) => {
+  const handleMessageSubmit = async (message: { text: string }) => {
     try {
       const newMessage: Message = {
-        ...message,
+        text: message.text,
         timestamp: Date.now()
       };
       

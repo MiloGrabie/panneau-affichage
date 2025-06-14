@@ -3,7 +3,6 @@ from typing import List, Set, Dict
 from datetime import datetime
 
 class Message(BaseModel):
-    author: str
     text: str
     timestamp: int
 

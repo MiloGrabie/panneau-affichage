@@ -31,7 +31,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ onGenerateCode }) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer tous les messages ?')) {
       setIsClearing(true);
       try {
-        const response = await fetch('http://localhost:8000/messages', {
+        const response = await fetch('http://176.132.102.216:8000/messages', {
           method: 'DELETE',
         });
         if (response.ok) {

@@ -3,12 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './MessageSubmission.css';
 
 interface MessageSubmissionProps {
-  onSubmit: (message: { author: string; text: string }) => Promise<void>;
+  onSubmit: (message: { text: string }) => Promise<void>;
   validateCode: (code: string) => Promise<boolean>;
 }
 
 const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validateCode }) => {
-  const [author, setAuthor] = useState('');
   const [text, setText] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,11 +47,6 @@ const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validat
     e.preventDefault();
     setError('');
 
-    if (!author.trim()) {
-      setError('Veuillez entrer un nom d\'auteur');
-      return;
-    }
-
     if (!text.trim()) {
       setError('Veuillez entrer un message');
       return;
@@ -65,7 +59,7 @@ const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validat
 
     try {
       setIsSubmitting(true);
-      await onSubmit({ author, text });
+      await onSubmit({ text });
       navigate('/');
     } catch (err) {
       setError('Une erreur est survenue lors de l\'envoi du message');
@@ -89,29 +83,17 @@ const MessageSubmission: React.FC<MessageSubmissionProps> = ({ onSubmit, validat
       
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="author">Votre nom :</label>
-          <input
-            type="text"
-            id="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            maxLength={50}
-            placeholder="Entrez votre nom"
-          />
-        </div>
-
-        <div className="form-group">
           <label htmlFor="text">Votre message :</label>
           <textarea
             id="text"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            maxLength={200}
-            placeholder="Entrez votre message (max 200 caractères)"
+            maxLength={150}
+            placeholder="Entrez votre message (max 150 caractères)"
             rows={4}
           />
           <div className="char-count">
-            {text.length}/200 caractères
+            {text.length}/150 caractères
           </div>
         </div>
 

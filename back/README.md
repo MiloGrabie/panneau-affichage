@@ -23,7 +23,7 @@ This is the backend server for the panneau-affichage application.
 To run the development server:
 
 ```bash
-uvicorn main:app --reload
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 The server will start at `http://localhost:8000`
